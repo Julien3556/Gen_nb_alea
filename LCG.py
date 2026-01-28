@@ -1,7 +1,7 @@
 def LCG(a, c, m, seed, nb_steps):
     X = []
     X_n = seed
-    for _ in range(nb_steps):
+    for i in range(nb_steps):
         X_n = (a * X_n + c) % m
         X.append(X_n)
     return X
