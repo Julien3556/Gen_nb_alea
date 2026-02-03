@@ -67,7 +67,7 @@ def tempering(y):
 
     return y
 
-def mersenne_twister(seed, nb):
+def mersenne_twister_test(seed, nb):
     X = initialization(seed)
     numbers = []
     index = 0
@@ -82,7 +82,7 @@ def mersenne_twister(seed, nb):
         index = (index + 1) % n
     return numbers
 
-def mersenne_twister_test(seed, nb):
+def mersenne_twister(seed, nb):
     X = initialization(seed)
     numbers = []
     index = 0
@@ -100,10 +100,10 @@ def mersenne_twister_test(seed, nb):
 if __name__ == "__main__":
     marseenne_seed = 123  # Valeur de seed par défaut
 
-    nb = 1000  # Nombre de nombres aléatoires à générer"
+    nb = 0  # Nombre de nombres aléatoires à générer"
 
     # Test de générations de nb nombres aléatoires
-    numbers = mersenne_twister(marseenne_seed, nb)
+    numbers = mersenne_twister_test(marseenne_seed, nb)
     print("Nombres aléatoires générés par le Mersenne Twister :")
     for el in numbers:
         print(el)
@@ -114,6 +114,6 @@ if __name__ == "__main__":
     # Génération du nième nombre aléatoire
     n = Gen_systeme.return_small_seed() # Valeur de test
     print(f"n = {n}")
-    number = mersenne_twister_test(marseenne_seed, n)
+    number = mersenne_twister(marseenne_seed, n)
     print(f" n ème nombre aléatoire généré par le Mersenne Twister : {number}")
 

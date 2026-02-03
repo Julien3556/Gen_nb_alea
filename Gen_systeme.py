@@ -57,7 +57,7 @@ def return_seed():
 
 def return_small_seed():
     n = main()
-    n = n[:2]
+    n = n[:1]
     seed = octets_to_int(n)
     return seed
 
