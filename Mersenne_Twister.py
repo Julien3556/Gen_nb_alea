@@ -31,16 +31,23 @@ def A(x):
     else:
         return shift_right(x, 1) ^ 0x9908B0DF # Xor avec a = 2567483615
 
-def recurrence(n, seed):
-    Mr = 11111111111111111111111111111110 # où les r (31) premiers bits valent 1, les autres 0
-    nonMr = 01111111111111111111111111111111 # où les r (31) premiers bits valent 0, les autres 1
-
-
+def initialization(seed):
     X = []
-    X_n = seed
-    X.append(X_n)
-    for i in range(n):
-        X_n = A()
+    X.append(seed)
+    for i in range(1, n):
+        temp = (1812433253 * (X[i-1] ^ shift_right(X[i-1], 30)) + i) & 0xFFFFFFFF
+        X.append(temp)
+    return X
+
+def recurrence(X):
+    M_r = 0x7FFFFFFF # où les r (31) premiers bits valent 1, les autres 0
+    M_r_complement = 0x80000000 # où les r (31) premiers bits valent 1, les autres 0
+    
+    for k in range(n):
+        x = (X[k] & M_r_complement) | (X[(k+1) % n] & M_r)
+        xA = A(x)
+        X[k] = X[(k + m) % n] ^ xA
+    return X
 
 # Paramètres de tempering
 u = 11
@@ -49,6 +56,7 @@ t = 15
 l = 18
 b = 0x9D2C5680   # 2636928640
 c = 0xEFC60000   # 4022730752
+
 def tempering(y):
     # Opération de tempering
     y = y ^ (shift_right(y, u))
@@ -58,8 +66,34 @@ def tempering(y):
 
     return y
 
-if __name__ == "__main__":
-    n = 5
-    binary = int_to_bin(n)
-    print(f"Binaire de {n}: {binary}")
+def mersenne_twister(seed, nb):
+    X = initialization(seed)
+    numbers = []
+    index = 0
+    
+    for i in range(nb):
+        if index == 0:
+            X = recurrence(X)
+        
+        y = tempering(X[index])
+        numbers.append(y)
+        
+        index = (index + 1) % n
+    return numbers
 
+if __name__ == "__main__":
+    marseenne_seed = 123  # Valeur de seed par défaut
+    nb = 20  # Nombre de nombres aléatoires à générer
+
+    """     X = initialization(marseenne_seed)
+    print("Premiers états internes générés par le Mersenne Twister :")
+    for i in range(10):
+        print(X[i]) """
+
+    numbers = mersenne_twister(marseenne_seed, nb)
+    print("Nombres aléatoires générés par le Mersenne Twister :")
+    for el in numbers:
+        print(el)
+
+        # Affichage en binaire
+        print(int_to_bin(el))
