@@ -95,7 +95,7 @@ def mersenne_twister(seed, nb, nieme=Gen_systeme.return_small_seed()):
         y = tempering(X[index])
         numbers.append(y)
         
-        index = (index + 1) % (nieme + nb)
+        index = (index + 1) % n
     return numbers[nieme:]
 
 if __name__ == "__main__":
@@ -113,7 +113,7 @@ if __name__ == "__main__":
         print(int_to_bin(el))
 
     # Génération du nième nombre aléatoire
-    numbers = mersenne_twister(marseenne_seed, 3)
+    numbers = mersenne_twister(marseenne_seed, 10,1)
     for el in numbers:
         print(el)
 
