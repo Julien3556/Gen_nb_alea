@@ -1,6 +1,7 @@
 """
 Source : https://www.planchet.net/EXT/ISFA/fp-isfa.nsf/0/6CEB5B474CD3B563C125700C0040D8E3/$FILE/GT2008-01.pdf?OpenElement
 """
+import Gen_systeme
 # Paramètres MT19937
 w = 32  # longueur en bits
 n = 624  # ordre de récurrence
@@ -66,7 +67,7 @@ def tempering(y):
 
     return y
 
-def mersenne_twister(seed, nb):
+def mersenne_twister_test(seed, nb):
     X = initialization(seed)
     numbers = []
     index = 0
@@ -81,19 +82,38 @@ def mersenne_twister(seed, nb):
         index = (index + 1) % n
     return numbers
 
+def mersenne_twister(seed, nb):
+    X = initialization(seed)
+    numbers = []
+    index = 0
+    
+    for i in range(nb):
+        if index == 0:
+            X = recurrence(X)
+        
+        y = tempering(X[index])
+        numbers.append(y)
+        
+        index = (index + 1) % n
+    return numbers[-1]
+
 if __name__ == "__main__":
     marseenne_seed = 123  # Valeur de seed par défaut
-    nb = 20  # Nombre de nombres aléatoires à générer
 
-    """     X = initialization(marseenne_seed)
-    print("Premiers états internes générés par le Mersenne Twister :")
-    for i in range(10):
-        print(X[i]) """
+    nb = 0  # Nombre de nombres aléatoires à générer"
 
-    numbers = mersenne_twister(marseenne_seed, nb)
+    # Test de générations de nb nombres aléatoires
+    numbers = mersenne_twister_test(marseenne_seed, nb)
     print("Nombres aléatoires générés par le Mersenne Twister :")
     for el in numbers:
         print(el)
 
         # Affichage en binaire
         print(int_to_bin(el))
+
+    # Génération du nième nombre aléatoire
+    n = Gen_systeme.return_small_seed() # Valeur de test
+    print(f"n = {n}")
+    number = mersenne_twister(marseenne_seed, n)
+    print(f" n ème nombre aléatoire généré par le Mersenne Twister : {number}")
+

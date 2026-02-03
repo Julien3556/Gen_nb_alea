@@ -50,6 +50,17 @@ def urandom_windows(n) :
 def octets_to_int(octets):
     return int.from_bytes(octets, byteorder="big")
 
+def return_seed():
+    n = main()
+    seed = octets_to_int(n)
+    return seed
+
+def return_small_seed():
+    n = main()
+    n = n[:1]
+    seed = octets_to_int(n)
+    return seed
+
 def main():
     os_type = platform.system()
 
@@ -76,3 +87,5 @@ if __name__ == "__main__":
     print(nb_aleatoire_octets)
     nb_aleatoire_int = octets_to_int(nb_aleatoire_octets)
     print(nb_aleatoire_int)
+
+    print(return_small_seed())
