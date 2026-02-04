@@ -1,11 +1,22 @@
 import random
 
 def source_mauvaise(n, p):
+    resultats = []
+    for _ in range(n):
+        tirage = random.random()
+        if tirage < p:
+            resultats.append(1)
+        else:
+            resultats.append(0)
+    return resultats
 
-    return [1 if random.random() < p else 0 for _ in range(n)]
 
 def source_aleatoire(n):
-    return [random.getrandbits(1) for _ in range(n)]
+    resultats = []
+    for _ in range(n):
+        bit = random.getrandbits(1)
+        resultats.append(bit)
+    return resultats
 
 def xor_sources(*sources):
     res = []
