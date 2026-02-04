@@ -82,20 +82,21 @@ def mersenne_twister_test(seed, nb):
         index = (index + 1) % n
     return numbers
 
-def mersenne_twister(seed, nb):
+def mersenne_twister(seed, nb, nieme=Gen_systeme.return_small_seed()):
+    #print("nieme =", nieme)
     X = initialization(seed)
     numbers = []
     index = 0
     
-    for i in range(nb):
+    for i in range(nieme + nb):
         if index == 0:
             X = recurrence(X)
         
         y = tempering(X[index])
         numbers.append(y)
         
-        index = (index + 1) % n
-    return numbers[-1]
+        index = (index + 1) % (nieme + nb)
+    return numbers[nieme:]
 
 if __name__ == "__main__":
     marseenne_seed = 123  # Valeur de seed par défaut
@@ -112,8 +113,7 @@ if __name__ == "__main__":
         print(int_to_bin(el))
 
     # Génération du nième nombre aléatoire
-    n = Gen_systeme.return_small_seed() # Valeur de test
-    print(f"n = {n}")
-    number = mersenne_twister(marseenne_seed, n)
-    print(f" n ème nombre aléatoire généré par le Mersenne Twister : {number}")
+    numbers = mersenne_twister(marseenne_seed, 3)
+    for el in numbers:
+        print(el)
 
