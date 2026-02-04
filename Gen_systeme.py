@@ -50,12 +50,12 @@ def urandom_windows(n) :
 def octets_to_int(octets):
     return int.from_bytes(octets, byteorder="big")
 
-def return_seed():
+def return_number():
     n = main()
     seed = octets_to_int(n)
     return seed
 
-def return_small_seed():
+def return_small_number():
     n = main()
     n = n[:1]
     seed = octets_to_int(n)
@@ -67,11 +67,9 @@ def main():
     if os_type == "Linux":
         print("Systeme: Linux")
         n = urandom_linux(16)
-        print(n)
     elif os_type == "Windows":
         print("Systeme: Windows")
         n = urandom_windows(16)
-        print(n)
     elif os_type == "Darwin":
         print("Systeme: macOS non supporté")
     else:
@@ -88,4 +86,4 @@ if __name__ == "__main__":
     nb_aleatoire_int = octets_to_int(nb_aleatoire_octets)
     print(nb_aleatoire_int)
 
-    print(return_small_seed())
+    print(return_small_number())

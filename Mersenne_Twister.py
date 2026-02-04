@@ -9,13 +9,6 @@ r = 31
 m = 397
 a = 2567483615  # 0x9908B0DF
 
-# Paramètres de tempering
-u = 11
-s = 7
-t = 15
-l = 18
-b = 2636928640   # 0x9D2C5680
-c = 4022730752   # 0xEFC60000
 
 def int_to_bin(n):
     return bin(n)[2:]
@@ -42,7 +35,7 @@ def initialization(seed):
 
 def recurrence(X):
     M_r = 0x7FFFFFFF # où les r (31) premiers bits valent 1, les autres 0
-    M_r_complement = 0x80000000 # où les r (31) premiers bits valent 1, les autres 0
+    M_r_complement = 0x80000000 # où les r (31) derniers bits valent 1, les autres 0
     
     for k in range(n):
         x = (X[k] & M_r_complement) | (X[(k+1) % n] & M_r)
@@ -82,7 +75,7 @@ def mersenne_twister_test(seed, nb):
         index = (index + 1) % n
     return numbers
 
-def mersenne_twister(seed, nb, nieme=Gen_systeme.return_small_seed()):
+def mersenne_twister(seed, nb, nieme=Gen_systeme.return_small_number()):
     #print("nieme =", nieme)
     X = initialization(seed)
     numbers = []
@@ -104,7 +97,7 @@ if __name__ == "__main__":
     nb = 0  # Nombre de nombres aléatoires à générer"
 
     # Test de générations de nb nombres aléatoires
-    numbers = mersenne_twister_test(marseenne_seed, nb)
+    numbers = mersenne_twister_test(marseenne_seed, 10)
     print("Nombres aléatoires générés par le Mersenne Twister :")
     for el in numbers:
         print(el)
@@ -113,7 +106,7 @@ if __name__ == "__main__":
         print(int_to_bin(el))
 
     # Génération du nième nombre aléatoire
-    numbers = mersenne_twister(marseenne_seed, 10,1)
+    numbers = mersenne_twister(marseenne_seed, 10)
     for el in numbers:
         print(el)
 
