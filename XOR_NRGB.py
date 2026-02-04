@@ -10,14 +10,6 @@ def source_mauvaise(n, p):
             resultats.append(0)
     return resultats
 
-
-def source_aleatoire(n):
-    resultats = []
-    for _ in range(n):
-        bit = random.getrandbits(1)
-        resultats.append(bit)
-    return resultats
-
 def xor_sources(*sources):
     res = []
     for i in range(len(sources[0])):   
@@ -31,7 +23,7 @@ n = 2048
 
 G1 = source_mauvaise(n, p=0.7)      
 G2 = source_mauvaise(n, p=0.55)     
-G3 = source_aleatoire(n)     
+G3 = source_mauvaise(n, p=0.5)   # n'est pas une source mauvaise vue que p=0.5  
 
 G_hybride = xor_sources(G1, G2, G3)
 
