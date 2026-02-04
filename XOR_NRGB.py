@@ -1,11 +1,14 @@
 import random
 
 def source_mauvaise(n, p):
-
-    return [1 if random.random() < p else 0 for _ in range(n)]
-
-def source_aleatoire(n):
-    return [random.getrandbits(1) for _ in range(n)]
+    resultats = []
+    for _ in range(n):
+        tirage = random.random()
+        if tirage < p:
+            resultats.append(1)
+        else:
+            resultats.append(0)
+    return resultats
 
 def xor_sources(*sources):
     res = []
@@ -20,7 +23,7 @@ n = 2048
 
 G1 = source_mauvaise(n, p=0.7)      
 G2 = source_mauvaise(n, p=0.55)     
-G3 = source_aleatoire(n)     
+G3 = source_mauvaise(n, p=0.5)   # n'est pas une source mauvaise vue que p=0.5  
 
 G_hybride = xor_sources(G1, G2, G3)
 
