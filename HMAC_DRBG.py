@@ -48,11 +48,10 @@ class HMAC_DRBG ():
 		self.reseed_counter += 1
 
 		return temp[:num_bytes]
-	
-drbg = HMAC_DRBG (entropy=os.urandom (64))
-secret = drbg.generate (32)
-secret_int = int.from_bytes(secret, byteorder='big')
+
+if __name__ == "__main__":
+	drbg = HMAC_DRBG (entropy=os.urandom (64))
+	secret = drbg.generate (1000)
 
 
-print(secret)
-print(secret_int)
+	print(secret)

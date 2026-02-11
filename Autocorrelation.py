@@ -32,7 +32,7 @@ def test_autocorrelation(data, lags=[1, 8, 16, 32]):
     Test d'autocorrélation 
     """
     n = len(data)
-    seuil = 3 / (n ** 0.5)  # Seuil de signification à 95%
+    seuil = 3 / (n ** 0.5)  
     
     print(f"Seuil acceptable: [{-seuil:.4f}, {seuil:.4f}]")
     print("")
@@ -54,12 +54,3 @@ def test_autocorrelation(data, lags=[1, 8, 16, 32]):
     
     print("") 
     return 0
-
-
-print("Test avec os.urandom")
-data_random = list(os.urandom(10000))
-test_autocorrelation(data_random)
-
-print("\nTest avec pattern")
-data_pattern = [i % 10 for i in range(10000)]  
-test_autocorrelation(data_pattern)

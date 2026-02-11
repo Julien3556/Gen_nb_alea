@@ -12,6 +12,7 @@ def box_muller():
     z1 = (-2.0 * math.log(u1))**0.5 * (math.sin(2.0 * math.pi * u2))
     return z0, z1
 
-z0, z1 = box_muller()
-print("Nombres aleatoires suivant une loi normale standard :")
-print(z0, z1)
+if __name__ == "__main__":
+    z0, z1 = box_muller()
+    print("Nombres aleatoires suivant une loi normale standard :")
+    print(z0, z1)

@@ -43,11 +43,6 @@ def affichage_ks(D, n, alpha=0.05):
     c = c_values.get(alpha, 1.36)
     valeur_critique = c / math.sqrt(n)
     
-    print(f"Test de Kolmogorov-Smirnov")
-    print(f"Taille echantillon: {n}")
-    print(f"Statistique D: {D:.6f}")
-    print(f"Valeur critique (alpha={alpha}): {valeur_critique:.6f}")
-    
     if D < valeur_critique:
         print(f"OK - Distribution uniforme (niveau {int((1-alpha)*100)}%)")
         return True

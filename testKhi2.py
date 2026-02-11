@@ -15,7 +15,7 @@ def test_khi_2(data):
 
 def interpreter_khi2(khi2_value, alpha=0.05):
     """
-    Valeurs critiques pré-calculées pour ddl=255
+    Valeurs critiques pour ddl=255
     """
     
     valeurs_critiques = {
@@ -26,18 +26,13 @@ def interpreter_khi2(khi2_value, alpha=0.05):
     
     borne_inf, borne_sup = valeurs_critiques.get(alpha, valeurs_critiques[0.05])
     
-    print(f"Khi-2 calcule: {khi2_value:.2f}")
-    print(f"Valeur attendue: 255")
-    print(f"Intervalle de confiance ({int((1-alpha)*100)}%): [{borne_inf:.1f}, {borne_sup:.1f}]")
     
+    print(f"Intervalle de confiance ({int((1-alpha)*100)}%): [{borne_inf:.1f}, {borne_sup:.1f}]")
+    print(f"Khi-2: {khi2_value:.2f}")
+
     if borne_inf <= khi2_value <= borne_sup:
-        print(f"OK - Les donnees semblent aleatoires")
+        print(f"OK - Les donnees sont uniforme")
         return True
     else:
-        print(f"ERREUR - Les donnees ne semblent PAS aleatoires")
+        print(f"ERREUR - Les donnees ne sont PAS uniforme")
         return False
-
-# Test
-data = os.urandom(10000)
-khi2 = test_khi_2(data)
-interpreter_khi2(khi2)

@@ -55,11 +55,11 @@ def pgcd(a, b):
     return a
 
 
-def bbs(nb_bits, seed, nombre_bit_alea):
+def bbs(nb_bits, seed, nombre_bit_alea, nombre_de_valeur):
     """
-    Génère les paramètres pour BBS et retourne des nombres aléatoires
+    Génère les parametres pour BBS et retourne des nombres aleatoires
     """
-    print("Génération de p et q...")
+    # print("Generation de p et q...")
     
     # On génère deux nombres premiers de Blum différents
     p = generer_premier_blum(nb_bits, seed)
@@ -80,21 +80,28 @@ def bbs(nb_bits, seed, nombre_bit_alea):
     # Premier état : x1 = x0**2 mod n
     etat_x = pow(graine_x0, 2, n)
     
+    """
     print(f"p = {p}")
     print(f"q = {q}")
     print(f"n = {n}")
     print(f"x0 = {etat_x}")
+    """
     
     # Afin de tester on génère 10 nombres de la valeur de nombre_bit_alea
-    print(f"\n 10 nombres aléatoires de {nombre_bit_alea} bits :")
-    for i in range(10):
+    nb = nombre_de_valeur
+    """
+    print(f"\nnb nombres aleatoires de {nombre_bit_alea} bits :")
+    """
+    res = []
+    for i in range(nb):
         j = 0
         for _ in range(nombre_bit_alea):
             bit = etat_x & 1
             etat_x = pow(etat_x, 2, n)  # x = x**2 mod n
             j = (j << 1) | bit
-        print(j)
-        
+        res.append(j)
+
+    return res
 
 
 if __name__ == "__main__":
@@ -103,4 +110,6 @@ if __name__ == "__main__":
     seed = 123 # A modifier a chaque éxécution si on veut p,q différents
     bits = 32
     nombre_bit_alea = 16 # Permet de modifier la taille des nombres aléatoire qu'on génére
-    bbs(bits, seed,nombre_bit_alea)
+    nb = 10
+    res = bbs(bits, seed,nombre_bit_alea, nb)
+    print(res)

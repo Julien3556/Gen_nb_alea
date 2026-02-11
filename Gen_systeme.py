@@ -72,10 +72,10 @@ def main():
     os_type = platform.system()
 
     if os_type == "Linux":
-        print("Systeme: Linux")
+        # print("Systeme: Linux")
         n = urandom_linux(16)
     elif os_type == "Windows":
-        print("Systeme: Windows")
+        # print("Systeme: Windows")
         n = urandom_windows(16)
     elif os_type == "Darwin":
         print("Systeme: macOS non supporté")
