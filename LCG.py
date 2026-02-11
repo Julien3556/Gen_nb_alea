@@ -7,7 +7,8 @@ def LCG(a, c, m, seed, nb_steps):
     return X
 
 if __name__ == "__main__":
-    # Example parameters for the LCG
+    # Example de paramètres pour LCG utilisé par RANDU sur des machines IBM System/370
+    # Ces paramètres sont biasés
     a = 65539
     c = 0
     m = 2**31
