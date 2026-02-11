@@ -32,7 +32,7 @@ def encrypt_LCG(plaintext,seed):
     return cyphertext
 
 def decrypt_LCG(cyphertext,seed):
-    print("Déchiffrage du chiffré : ",cyphertext)
+    print("Dechiffrage du chiffre : ",cyphertext)
     X = LCG.LCG(a, c, m, seed, len(cyphertext))
     # print(X)
     plaintext = []
@@ -86,7 +86,7 @@ def attack(cyphertext):
 if __name__ == "__main__":
     # Chiffrage
     cyphertext = encrypt_LCG("flag{demo}",seed)
-    print("chiffré : ",cyphertext)
+    print("chiffre : ",cyphertext)
     print("\n")
 
     # Déchiffrage
