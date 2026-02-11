@@ -11,6 +11,20 @@ import LCG
 
 def encrypt_LCG(plaintext,seed):
     """
+    Chiffre un texte clair en utilisant un générateur LCG avec XOR.
+    
+    La fonction génère une suite LCG et effectue un XOR entre chaque octet du clair
+    et l'octet correspondant de la suite LCG.
+    
+    Args:
+        plaintext (str or list): Texte clair à chiffrer (peut être une chaîne ou liste d'entiers)
+        seed (int): Graine initiale pour le générateur LCG
+    
+    Returns:
+        list: Liste des octets chiffrés
+    
+    Note:
+        Les paramètres a, c, m doivent être définis globalement dans le script
     """
     print("Chiffrage du clair : ",plaintext)
     X = LCG.LCG(a, c, m, seed, len(plaintext))
@@ -29,6 +43,22 @@ def encrypt_LCG(plaintext,seed):
     return cyphertext
 
 def decrypt_LCG(cyphertext,seed):
+    """
+    Déchiffre un texte chiffré en utilisant le même générateur LCG avec XOR.
+    
+    Opération inverse du chiffrement: génère la même suite LCG et effectue un XOR
+    entre chaque octet du chiffré et l'octet correspondant de la suite LCG.
+    
+    Args:
+        cyphertext (list): Liste des octets chiffrés
+        seed (int): Graine initiale pour le générateur LCG (doit être la même que pour le chiffrement)
+    
+    Returns:
+        list: Liste des octets déchiffrés
+    
+    Note:
+        Les paramètres a, c, m doivent être définis globalement dans le script
+    """
     print("Dechiffrage du chiffre : ",cyphertext)
     X = LCG.LCG(a, c, m, seed, len(cyphertext))
     # print(X)
@@ -42,6 +72,16 @@ def decrypt_LCG(cyphertext,seed):
     return plaintext
 
 def euclide_etendu(b,n):
+    """
+    Calcule l'inverse modulaire de b modulo n en utilisant l'algorithme d'Euclide étendu.
+    
+    Args:
+        b (int): L'entier dont on cherche l'inverse modulaire
+        n (int): Le modulo
+    
+    Returns:
+        L'inverse modulaire de b modulo n
+    """
     n0 = n
     b0 = b 
     t0 = 0
@@ -68,7 +108,27 @@ def euclide_etendu(b,n):
         return t
     
 def attack(cyphertext, plaintext_know):
-    """ Dans cette attaque, on part du principe que l'attaquant connaît le début du clair"""
+    """
+    Attaque par texte clair connu pour retrouver les paramètres du LCG.
+    
+    L'attaquant connaît le début du texte clair correspondant aux premiers octets du chiffré.
+    À partir de cette connaissance, on peut retrouver les paramètres a et c du LCG.
+    
+    Args:
+        cyphertext (list): Liste des octets chiffrés
+        plaintext_know (list or str): Début du texte clair (plaintext) pour les premiers octets
+    
+    Returns:
+        tuple: (a_search, c_search) les paramètres retrouvés du LCG
+    
+    Algorithm:
+        1. Calcule les premiers éléments de la suite X en faisant XOR(cyphertext, plaintext)
+        2. Utilise les relations de récurrence du LCG pour retrouver a et c
+        3. Applique l'algorithme d'Euclide étendu pour calculer a
+    
+    Note:
+        Nécessite au moins 3 octets de plaintext clair pour fonctionner correctement
+    """
 
     # On calcul le début de la suite X du LCG
     X_find = []
