@@ -1,6 +1,13 @@
+import platform
 import ctypes
 import os
-import platform
+
+"""
+On importe :
+"platform" pour connaître le système d'exploitation de l'utilisateur,
+"ctypes" pour importer les API de Windows et Linux,
+"os" pour retourner les erreurs de l'API Linux.
+"""
 
 def urandom_linux(n):
     # Charger libc
@@ -24,7 +31,7 @@ def urandom_linux(n):
 
 def urandom_windows(n) :
     """
-    Génère n octets aléatoires en utilisant l'API BCrypt de Windows.
+    Génère n octets aléatoires en utilisant l'API BCryptGenRandom de Windows.
     """
 
     # Charger la DLL Windows
