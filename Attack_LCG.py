@@ -4,15 +4,10 @@ https://github.com/ajuelosemmanuel/Truncated_LCG_Seed_Recovery/blob/main/attack_
 https://payatu.com/blog/stream-ciphers-cryptography-for-ctfs/#LCG_Linear_Congruential_Generators
 """
 import LCG
-# Example de paramètres pour LCG utilisé par RANDU sur des machines IBM System/370
-# Ces paramètres sont biasés
-a = 1103575245
-c = 12345
-m = 2**31
-seed = 12345
+
+
 
 # X_n = (a * X_n + c) % m
-# 
 
 def encrypt_LCG(plaintext,seed):
     print("Chiffrage du clair : ",plaintext)
@@ -70,22 +65,29 @@ def euclide_etendu(b,n):
         #print("Inverse :", t)
         return t
     
-def attack(cyphertext):
+def attack(cyphertext, plaintext_know):
     """ Dans cette attaque, on part du principe que l'attaquant connaît le début du clair"""
-    plaintext_know = [102, 108, 97]
 
     # On calcul le début de la suite X du LCG
     X_find = []
     for i in range(len(plaintext_know)):
         key = (cyphertext[i]^plaintext_know[i]%m)
         X_find.append(key)
+    print("Debut de la suite LCG : ",X_find)
     a_search = (X_find[2] - X_find[1]) * euclide_etendu(X_find[1] - X_find[0], m) % m
     c_search = (X_find[1] - X_find[0]*a_search) % m
     return a_search, c_search
 
 if __name__ == "__main__":
+    # Paramètres secrets
+    a = 1103575245
+    c = 12345
+    m = 2**31
+    seed = 12345
+    print(f"Parametres secrets a : {a} et c : {c}")
     # Chiffrage
-    cyphertext = encrypt_LCG("flag{demo}",seed)
+    plaintext = "CTF{flag}"
+    cyphertext = encrypt_LCG(plaintext,seed)
     print("chiffre : ",cyphertext)
     print("\n")
 
@@ -98,6 +100,9 @@ if __name__ == "__main__":
     print("\n")
 
     # Simulation d'attaque
-    (a_search,c_search)=attack(cyphertext)
+    print("Simulation d'attaque...")
+    plaintext_know = plaintext[:3]
+    print("Clair connu par l'attaquant : ",plaintext_know)
+    (a_search,c_search)=attack(cyphertext, plaintext_know)
     print("a = ",a_search)
     print("c = ",c_search)

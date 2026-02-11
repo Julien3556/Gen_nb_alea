@@ -11,6 +11,8 @@ a = 2567483615  # 0x9908B0DF
 
 
 def int_to_bin(n):
+    """
+    """
     return bin(n)[2:]
 
 def shift_right(n, bits):
