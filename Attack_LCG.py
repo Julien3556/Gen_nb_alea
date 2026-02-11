@@ -22,9 +22,6 @@ def encrypt_LCG(plaintext,seed):
     
     Returns:
         list: Liste des octets chiffrés
-    
-    Note:
-        Les paramètres a, c, m doivent être définis globalement dans le script
     """
     print("Chiffrage du clair : ",plaintext)
     X = LCG.LCG(a, c, m, seed, len(plaintext))
@@ -46,8 +43,7 @@ def decrypt_LCG(cyphertext,seed):
     """
     Déchiffre un texte chiffré en utilisant le même générateur LCG avec XOR.
     
-    Opération inverse du chiffrement: génère la même suite LCG et effectue un XOR
-    entre chaque octet du chiffré et l'octet correspondant de la suite LCG.
+    Opération inverse du chiffrement.
     
     Args:
         cyphertext (list): Liste des octets chiffrés
@@ -55,9 +51,6 @@ def decrypt_LCG(cyphertext,seed):
     
     Returns:
         list: Liste des octets déchiffrés
-    
-    Note:
-        Les paramètres a, c, m doivent être définis globalement dans le script
     """
     print("Dechiffrage du chiffre : ",cyphertext)
     X = LCG.LCG(a, c, m, seed, len(cyphertext))
