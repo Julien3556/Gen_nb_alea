@@ -50,7 +50,7 @@ def urandom_windows(n) :
     )
 
     if status != 0:
-        raise RuntimeError("L'API Windows BCryptGenRandom a échoué")
+        raise RuntimeError("L'API Windows BCryptGenRandom a echoue")
 
     return buffer.raw
 
@@ -78,9 +78,9 @@ def main():
         # print("Systeme: Windows")
         n = urandom_windows(16)
     elif os_type == "Darwin":
-        print("Systeme: macOS non supporté")
+        print("Systeme: macOS non supporte")
     else:
-        print(f"Systeme: {os_type} non supporté")
+        print(f"Systeme: {os_type} non supporte")
     return n
 
 if __name__ == "__main__":

@@ -4,17 +4,25 @@ https://github.com/ajuelosemmanuel/Truncated_LCG_Seed_Recovery/blob/main/attack_
 https://payatu.com/blog/stream-ciphers-cryptography-for-ctfs/#LCG_Linear_Congruential_Generators
 """
 import LCG
-# Example de paramètres pour LCG utilisé par RANDU sur des machines IBM System/370
-# Ces paramètres sont biasés
-a = 1103575245
-c = 12345
-m = 2**31
-seed = 12345
+
+
 
 # X_n = (a * X_n + c) % m
-# 
 
 def encrypt_LCG(plaintext,seed):
+    """
+    Chiffre un texte clair en utilisant un générateur LCG avec XOR.
+    
+    La fonction génère une suite LCG et effectue un XOR entre chaque octet du clair
+    et l'octet correspondant de la suite LCG.
+    
+    Args:
+        plaintext (str or list): Texte clair à chiffrer (peut être une chaîne ou liste d'entiers)
+        seed (int): Graine initiale pour le générateur LCG
+    
+    Returns:
+        list: Liste des octets chiffrés
+    """
     print("Chiffrage du clair : ",plaintext)
     X = LCG.LCG(a, c, m, seed, len(plaintext))
     print("Suite X",X)
@@ -32,6 +40,18 @@ def encrypt_LCG(plaintext,seed):
     return cyphertext
 
 def decrypt_LCG(cyphertext,seed):
+    """
+    Déchiffre un texte chiffré en utilisant le même générateur LCG avec XOR.
+    
+    Opération inverse du chiffrement.
+    
+    Args:
+        cyphertext (list): Liste des octets chiffrés
+        seed (int): Graine initiale pour le générateur LCG (doit être la même que pour le chiffrement)
+    
+    Returns:
+        list: Liste des octets déchiffrés
+    """
     print("Dechiffrage du chiffre : ",cyphertext)
     X = LCG.LCG(a, c, m, seed, len(cyphertext))
     # print(X)
@@ -45,6 +65,16 @@ def decrypt_LCG(cyphertext,seed):
     return plaintext
 
 def euclide_etendu(b,n):
+    """
+    Calcule l'inverse modulaire de b modulo n en utilisant l'algorithme d'Euclide étendu.
+    
+    Args:
+        b (int): L'entier dont on cherche l'inverse modulaire
+        n (int): Le modulo
+    
+    Returns:
+        L'inverse modulaire de b modulo n
+    """
     n0 = n
     b0 = b 
     t0 = 0
@@ -70,22 +100,49 @@ def euclide_etendu(b,n):
         #print("Inverse :", t)
         return t
     
-def attack(cyphertext):
-    """ Dans cette attaque, on part du principe que l'attaquant connaît le début du clair"""
-    plaintext_know = [102, 108, 97]
+def attack(cyphertext, plaintext_know):
+    """
+    Attaque par texte clair connu pour retrouver les paramètres du LCG.
+    
+    L'attaquant connaît le début du texte clair correspondant aux premiers octets du chiffré.
+    À partir de cette connaissance, on peut retrouver les paramètres a et c du LCG.
+    
+    Args:
+        cyphertext (list): Liste des octets chiffrés
+        plaintext_know (list or str): Début du texte clair (plaintext) pour les premiers octets
+    
+    Returns:
+        tuple: (a_search, c_search) les paramètres retrouvés du LCG
+    
+    Algorithm:
+        1. Calcule les premiers éléments de la suite X en faisant XOR(cyphertext, plaintext)
+        2. Utilise les relations de récurrence du LCG pour retrouver a et c
+        3. Applique l'algorithme d'Euclide étendu pour calculer a
+    
+    Note:
+        Nécessite au moins 3 octets de plaintext clair pour fonctionner correctement
+    """
 
     # On calcul le début de la suite X du LCG
     X_find = []
     for i in range(len(plaintext_know)):
         key = (cyphertext[i]^plaintext_know[i]%m)
         X_find.append(key)
+    print("Debut de la suite LCG : ",X_find)
     a_search = (X_find[2] - X_find[1]) * euclide_etendu(X_find[1] - X_find[0], m) % m
     c_search = (X_find[1] - X_find[0]*a_search) % m
     return a_search, c_search
 
 if __name__ == "__main__":
+    # Paramètres secrets
+    a = 1103575245
+    c = 12345
+    m = 2**31
+    seed = 12345
+    print(f"Parametres secrets a : {a} et c : {c}")
     # Chiffrage
-    cyphertext = encrypt_LCG("flag{demo}",seed)
+    plaintext = "CTF{flag}"
+    cyphertext = encrypt_LCG(plaintext,seed)
     print("chiffre : ",cyphertext)
     print("\n")
 
@@ -98,6 +155,9 @@ if __name__ == "__main__":
     print("\n")
 
     # Simulation d'attaque
-    (a_search,c_search)=attack(cyphertext)
+    print("Simulation d'attaque...")
+    plaintext_know = plaintext[:3]
+    print("Clair connu par l'attaquant : ",plaintext_know)
+    (a_search,c_search)=attack(cyphertext, plaintext_know)
     print("a = ",a_search)
     print("c = ",c_search)
