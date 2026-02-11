@@ -1,4 +1,3 @@
-import os
 import math
 
 def test_kolmogorov_smirnov(data):
@@ -27,7 +26,7 @@ def test_kolmogorov_smirnov(data):
     
     return D
 
-def interpreter_ks(D, n, alpha=0.05):
+def affichage_ks(D, n, alpha=0.05):
     """
     Interprète le résultat du test KS
     
@@ -55,13 +54,3 @@ def interpreter_ks(D, n, alpha=0.05):
     else:
         print(f"ERREUR - Distribution non uniforme")
         return False
-
-print("Test avec os.urandom")
-data_random = list(os.urandom(10000))
-D = test_kolmogorov_smirnov(data_random)
-interpreter_ks(D, len(data_random))
-
-print("\nTest avec donnees biaisees")
-data_biased = [min(int(abs(i % 100)), 255) for i in range(10000)]
-D = test_kolmogorov_smirnov(data_biased)
-interpreter_ks(D, len(data_biased))
