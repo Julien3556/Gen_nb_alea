@@ -10,6 +10,8 @@ import LCG
 # X_n = (a * X_n + c) % m
 
 def encrypt_LCG(plaintext,seed):
+    """
+    """
     print("Chiffrage du clair : ",plaintext)
     X = LCG.LCG(a, c, m, seed, len(plaintext))
     print("Suite X",X)
