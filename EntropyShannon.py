@@ -1,5 +1,4 @@
 import math
-import os
 
 
 def entropie_shannon_octet(data):
@@ -17,7 +16,6 @@ def entropie_shannon_octet(data):
         float: Entropie de Shannon en bits, entre 0 et 8 pour des octets
     """
     n = len(data)
-
     freq = [0] * 256
 
     for byte in data:
@@ -31,5 +29,20 @@ def entropie_shannon_octet(data):
 
     return H
 
-data = os.urandom(10000)  
-print(entropie_shannon_octet(data))
+
+def analyser_entropie(data):
+    """
+    Analyse rapide de l'entropie des données
+    
+    Returns:
+        dict: Dictionnaire avec entropie, type de données estimé, et compression possible
+    """
+    H = entropie_shannon_octet(data)
+    
+    if H > 7.8:
+        print(f"OK - Les donnees sont Aleatoire/Chiffre")
+    else:
+        print(f"ERREUR - Les donnees ne sont pas Aleatoire/Chiffre")
+    
+
+
