@@ -7,7 +7,7 @@ def autocorrelation(data, lag):
     Intervalle acceptable: [-3/√n, 3/√n]
 
     Args:
-        data (list): Liste de nombres représentant la série temporelle
+        data (list): Liste de nombres
         lag (int): Décalage (nombre de positions) pour l'autocorrélation
     
     Returns:

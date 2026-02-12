@@ -10,6 +10,7 @@ from XOR_NRGB import *
 from EntropyShannon import *
 
 def BBS():
+    """Teste l'autocorrélation du générateur BBS (Blum Blum Shub)"""
     seed = 123 
     bits = 32
     nombre_bit_alea = 32 
@@ -23,6 +24,7 @@ def BBS():
     analyser_entropie(tous_les_octets)
 
 def Box_Muller():
+    """Teste l'autocorrélation du générateur Box-Muller"""
     tous_les_octets = b''
     for i in range(1000):
         x1,x2 = box_muller()
@@ -33,15 +35,18 @@ def Box_Muller():
     analyser_entropie(tous_les_octets)
 
 def Gen_Systeme():
+     """Teste l'autocorrélation du générateur système (urandom)"""
      octets = urandom_windows(1000)
      analyser_entropie(octets)
 
 def HMAC_DRGB():
+    """Teste l'autocorrélation du générateur HMAC-DRBG"""
     drbg = HMAC_DRBG (entropy=os.urandom (64))
     octets = drbg.generate (1000)
     analyser_entropie(octets)   
 
 def LCG_test():
+    """Teste l'autocorrélation du générateur LCG (Linear Congruential Generator)"""
     a = 65539
     c = 0
     m = 2**31
@@ -56,6 +61,7 @@ def LCG_test():
     analyser_entropie(tous_les_octets)
 
 def Mersenne_Twister():
+    """Teste l'autocorrélation du générateur Mersenne Twister"""
     marseenne_seed = 123  
     numbers = mersenne_twister(marseenne_seed, 1000)
     tous_les_octets = b''
@@ -66,6 +72,7 @@ def Mersenne_Twister():
     analyser_entropie(tous_les_octets)
 
 def XOR_NRGB():
+    """Teste l'autocorrélation du générateur XOR de sources non-aléatoires"""
     n = 8196
 
     G1 = source_mauvaise(n, p=0.7)      
