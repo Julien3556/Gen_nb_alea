@@ -1,4 +1,5 @@
 """
+Attaque sur LCG par récupération de graine
 Sources :
 https://github.com/ajuelosemmanuel/Truncated_LCG_Seed_Recovery/blob/main/attack_exemple_lsb.py
 https://payatu.com/blog/stream-ciphers-cryptography-for-ctfs/#LCG_Linear_Congruential_Generators

@@ -31,4 +31,5 @@ if __name__ == "__main__":
     nb_steps = 100
 
     X = LCG(a, c, m, seed, nb_steps)
+    print("Resultat LCG : \n")
     print(X)
