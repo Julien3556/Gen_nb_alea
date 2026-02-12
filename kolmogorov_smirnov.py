@@ -10,7 +10,7 @@ def test_kolmogorov_smirnov(data):
         data (list): Liste de nombres (octets) entre 0 et 255 à tester
     
     Returns:
-        float: Statistique D de K-S (distance maximale entre distributions)
+        float: Statistique D de K-S qui est distance maximale entre les deux distributions
     """
     n = len(data)
     sorted_data = sorted(data)

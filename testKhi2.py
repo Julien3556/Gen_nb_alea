@@ -5,7 +5,7 @@ def test_khi_2(data):
     Calcule la statistique du test du khi-deux (χ²) pour vérifier l'uniformité.
     
     Args:
-        data (bytes or list): Séquence d'octets à tester pour l'uniformité
+        data: Séquence d'octets à tester pour l'uniformité
     
     Returns:
         float: Statistique χ² calculée (plus proche de 255, plus proche de l'uniformité)
