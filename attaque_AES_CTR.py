@@ -7,14 +7,35 @@ import hashlib
 
 
 def xor_bytes(b1, b2):
-    """XOR de deux séquences de bytes"""
+    """
+    XOR de deux séquences de bytes.
+    
+    Effectue une opération XOR bit à bit entre deux séquences de même longueur.
+    
+    Args:
+        b1 (bytes): Première séquence de bytes
+        b2 (bytes): Deuxième séquence de bytes
+    
+    Returns:
+        bytes: Résultat du XOR entre b1 et b2
+    """
     return bytes(a ^ b for a, b in zip(b1, b2))
 
 
 def generer_keystream(cle, nonce, longueur):
     """
-    Génère un keystream à partir d'une clé et d'un nonce
-    Simule AES-CTR 
+    Génère un keystream à partir d'une clé et d'un nonce.
+    
+    Simule AES-CTR en utilisant SHA256 avec un compteur incrémenté pour générer
+    un flux de clé (keystream) de la longueur souhaitée.
+    
+    Args:
+        cle (bytes): La clé secrète pour la génération
+        nonce (bytes): Le nonce (nombre utilisé une seule fois)
+        longueur (int): La longueur désirée du keystream en bytes
+    
+    Returns:
+        bytes: Le keystream généré de la longueur spécifiée
     """
     keystream = b''
     compteur = 0
@@ -28,20 +49,44 @@ def generer_keystream(cle, nonce, longueur):
 
 
 def chiffrer_ctr(message, cle, nonce):
-    """Chiffre un message en mode CTR"""
+    """
+    Chiffre un message en mode CTR.
+    
+    Génère un keystream à partir de la clé et du nonce, puis applique une opération
+    XOR entre le message et le keystream pour obtenir le message chiffré.
+    
+    Args:
+        message (bytes): Le message à chiffrer
+        cle (bytes): La clé secrète
+        nonce (bytes): Le nonce à utiliser
+    
+    Returns:
+        bytes: Le message chiffré
+    """
     keystream = generer_keystream(cle, nonce, len(message))
     return xor_bytes(message, keystream)
 
 
 def dechiffrer_ctr(chiffre, cle, nonce):
-    """Déchiffre un message en mode CTR (identique au chiffrement)"""
+    """
+    Déchiffre un message en mode CTR.
+    
+    En mode CTR, le déchiffrement est identique au chiffrement : on génère le même
+    keystream avec la même clé et le même nonce, puis on applique XOR.
+    
+    Args:
+        chiffre (bytes): Le message chiffré à déchiffrer
+        cle (bytes): La clé secrète
+        nonce (bytes): Le nonce utilisé lors du chiffrement
+    
+    Returns:
+        bytes: Le message en clair déchiffré
+    """
     keystream = generer_keystream(cle, nonce, len(chiffre))
     return xor_bytes(chiffre, keystream)
 
 
-# ============================================================================
 # CAS 1 : On réutilise le nonce donc l'attaque réussit
-# ============================================================================
 
 
 print("CAS 1 : On réutilise le nonce")
@@ -108,9 +153,7 @@ attaque_reussi()
 
 
 
-# ============================================================================
 # CAS 2 : On réutilise pas les nonces cette fois 
-# ============================================================================
 
 
 

@@ -7,7 +7,15 @@ from Mersenne_Twister import mersenne_twister
 
 
 def est_premier(nombre):
-    """Vérifie si un nombre est premier en testant tous les diviseurs de 2 à sqrt(nombre) c'est long mais sûr"""
+    """
+    Vérifie si un nombre est premier en testant tous les diviseurs.
+    
+    Args:
+        nombre (int): Nombre entier à vérifier
+    
+    Returns:
+        bool: True si le nombre est premier, False sinon
+    """
     if nombre < 2:
         return False
     if nombre == 2:
@@ -25,8 +33,14 @@ def est_premier(nombre):
 
 def generer_premier_blum(nb_bits, seed):
     """
-    Génère un nombre premier p tel que p ≡ 3 (mod 4)
-    On utilise Mersenne Twister pour générer des candidats
+    Génère un nombre premier p tel que p ≡ 3 (mod 4).
+    
+    Args:
+        nb_bits (int): Nombre de bits désirés pour le nombre premier
+        seed (int): Graine pour le générateur Mersenne Twister
+    
+    Returns:
+        int or None: Un nombre premier de Blum de nb_bits bits, ou None si non trouvé
     """
     nombres_mt = mersenne_twister(seed, 500)
     
@@ -49,7 +63,16 @@ def generer_premier_blum(nb_bits, seed):
 
 
 def pgcd(a, b):
-    """Calcule le PGCD de a et b avec l'algorithme d'Euclide"""
+    """
+    Calcule le PGCD de a et b avec l'algorithme d'Euclide
+    
+    Args:
+        a (int): Premier nombre
+        b (int): Deuxième nombre
+    
+    Returns:
+        int: Le PGCD de a et b
+    """
     while b:
         a, b = b, a % b
     return a
@@ -58,6 +81,15 @@ def pgcd(a, b):
 def bbs(nb_bits, seed, nombre_bit_alea, nombre_de_valeur):
     """
     Génère les parametres pour BBS et retourne des nombres aleatoires
+
+    Args:
+        nb_bits (int): Nombre de bits pour les nombres premiers p et q
+        seed (int): Graine pour initialiser le générateur Mersenne Twister
+        nombre_bit_alea (int): Nombre de bits pour chaque nombre aléatoire généré
+        nombre_de_valeur (int): Nombre de valeurs aléatoires à générer
+    
+    Returns:
+        list: Liste de nombre_de_valeur nombres aléatoires de nombre_bit_alea bits chacun
     """
     # print("Generation de p et q...")
     

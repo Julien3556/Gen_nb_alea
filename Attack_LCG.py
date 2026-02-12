@@ -43,7 +43,8 @@ def decrypt_LCG(cyphertext,seed):
     """
     Déchiffre un texte chiffré en utilisant le même générateur LCG avec XOR.
     
-    Opération inverse du chiffrement.
+    Cette fonction effectue une opération inverse du chiffrement en générant la même suite LCG
+    et en appliquant l'opération XOR entre chaque octet chiffré et l'octet correspondant de la suite.
     
     Args:
         cyphertext (list): Liste des octets chiffrés
@@ -68,12 +69,15 @@ def euclide_etendu(b,n):
     """
     Calcule l'inverse modulaire de b modulo n en utilisant l'algorithme d'Euclide étendu.
     
+    L'algorithme d'Euclide étendu permet de trouver l'inverse multiplicatif de b modulo n,
+    c'est-à-dire un nombre t tel que (b * t) % n = 1. Cette fonction retourne None si l'inverse n'existe pas.
+    
     Args:
         b (int): L'entier dont on cherche l'inverse modulaire
         n (int): Le modulo
     
     Returns:
-        L'inverse modulaire de b modulo n
+        int or None: L'inverse modulaire de b modulo n, ou None si l'inverse n'existe pas
     """
     n0 = n
     b0 = b 
@@ -105,7 +109,8 @@ def attack(cyphertext, plaintext_know):
     Attaque par texte clair connu pour retrouver les paramètres du LCG.
     
     L'attaquant connaît le début du texte clair correspondant aux premiers octets du chiffré.
-    À partir de cette connaissance, on peut retrouver les paramètres a et c du LCG.
+    À partir de cette connaissance, on peut retrouver les paramètres a et c du LCG en utilisant
+    les relations de récurrence du générateur et l'algorithme d'Euclide étendu.
     
     Args:
         cyphertext (list): Liste des octets chiffrés
@@ -113,14 +118,6 @@ def attack(cyphertext, plaintext_know):
     
     Returns:
         tuple: (a_search, c_search) les paramètres retrouvés du LCG
-    
-    Algorithm:
-        1. Calcule les premiers éléments de la suite X en faisant XOR(cyphertext, plaintext)
-        2. Utilise les relations de récurrence du LCG pour retrouver a et c
-        3. Applique l'algorithme d'Euclide étendu pour calculer a
-    
-    Note:
-        Nécessite au moins 3 octets de plaintext clair pour fonctionner correctement
     """
 
     # On calcul le début de la suite X du LCG

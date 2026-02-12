@@ -10,6 +10,18 @@ On importe :
 """
 
 def urandom_linux(n):
+    """
+    Génère n octets aléatoires en utilisant la bibliothèque libc linux.
+    
+    Utilise la fonction getrandom de la libc Linux pour générer des nombres
+    aléatoires cryptographiquement sécurisés.
+    
+    Args:
+        n (int): Nombre d'octets aléatoires à générer
+    
+    Returns:
+        bytes: Séquence de n octets aléatoires
+    """
     # Charger libc
     libc = ctypes.CDLL("libc.so.6", use_errno=True)
 
@@ -32,6 +44,18 @@ def urandom_linux(n):
 def urandom_windows(n) :
     """
     Génère n octets aléatoires en utilisant l'API BCryptGenRandom de Windows.
+    
+    Utilise l'API crypt graphique native de Windows pour générer des nombres
+    aléatoires de haute qualité via BCryptGenRandom.
+    
+    Args:
+        n (int): Nombre d'octets aléatoires à générer
+    
+    Returns:
+        bytes: Séquence de n octets aléatoires
+    
+    Raises:
+        RuntimeError: Si l'appel à BCryptGenRandom échoue
     """
 
     # Charger la DLL Windows
@@ -55,20 +79,68 @@ def urandom_windows(n) :
     return buffer.raw
 
 def octets_to_int(octets):
+    """
+    Transforme les octets en entier.
+    
+    Convertit une séquence d'octets en un entier en utilisant l'ordre
+    d'octet big-endian (poids fort d'abord).
+    
+    Args:
+        octets (bytes): Octets générés aléatoirement
+    
+    Returns:
+        int: Entier représentant les octets en base 256
+    """
     return int.from_bytes(octets, byteorder="big")
 
 def return_number():
+    """
+    
+    Utilise la fonction main() pour générer 16 octets aléatoires,
+    puis convertit ces octets en un entier.
+    
+    Args:
+        None
+    
+    Returns:
+        int: Nombre aléatoire entier généré à partir de 16 octets
+    """
     n = main()
     seed = octets_to_int(n)
     return seed
 
 def return_small_number():
+    """
+    
+    Utilise la fonction main() pour générer 16 octets aléatoires,
+    puis prend seulement le premier octet et le convertit en entier.
+    
+    Args:
+        None
+    
+    Returns:
+        int: Nombre aléatoire entier généré à partir d'un octet (valeur entre 0 et 255)
+    """
     n = main()
     n = n[:1]
     seed = octets_to_int(n)
     return seed
 
 def main():
+    """
+    Génère 16 octets aléatoires en utilisant l'API système appropriée.
+    
+    Détecte le système d'exploitation et utilise la méthode adéquate :
+    - Linux : getrandom de libc
+    - Windows : BCryptGenRandom
+    - macOS et autres : non supportés
+    
+    Args:
+        None
+    
+    Returns:
+        bytes: 16 octets aléatoires générés de manière sécurisée
+    """
     os_type = platform.system()
 
     if os_type == "Linux":

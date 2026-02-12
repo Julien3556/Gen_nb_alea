@@ -5,6 +5,13 @@ def autocorrelation(data, lag):
     Calcule l'autocorrélation pour un lag donné
     Résultat attendu pour données aléatoires: proche de 0
     Intervalle acceptable: [-3/√n, 3/√n]
+
+    Args:
+        data (list): Liste de nombres représentant la série temporelle
+        lag (int): Décalage (nombre de positions) pour l'autocorrélation
+    
+    Returns:
+        float: Coefficient d'autocorrélation normalisé entre -1 et 1
     """
     n = len(data)
     
@@ -29,7 +36,17 @@ def autocorrelation(data, lag):
 
 def test_autocorrelation(data, lags=[1, 8, 16, 32]):
     """
-    Test d'autocorrélation 
+    Teste l'autocorrélation.
+    Calcule et affiche l'autocorrélation pour chaque décalage spécifié, en comparant
+    le résultat au seuil acceptable basé sur la taille des données. Affiche aussi
+    si chaque autocorrélation indique une corrélation significative ou pas.
+    
+    Args:
+        data (list): Liste de nombres représentant la série temporelle à tester
+        lags (list): Liste des décalages à tester (par défaut [1, 8, 16, 32])
+    
+    Returns:
+        int: Retourne 0 si le test s'est déroulé correctement
     """
     n = len(data)
     seuil = 3 / (n ** 0.5)  

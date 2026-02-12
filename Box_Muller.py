@@ -4,7 +4,20 @@ import math
 
 
 def box_muller():
-    # Genere deux nombres aleatoires uniformes entre 0 et 1 sachant que 0 est exclu et 1 est inclus
+    """
+    Génère deux nombres aléatoires suivant une distribution normale standard.
+    
+    Utilise la transformation de Box-Muller pour convertir deux nombres aléatoires
+    uniformes entre 0 et 1 en deux nombres aléatoires suivant une loi normale
+    standard (moyenne 0, écart-type 1). Utilise des fonctions trigonométriques
+    et logarithmiques pour effectuer cette transformation.
+    
+    Args:
+        None
+    
+    Returns:
+        tuple: Paire (z0, z1) de deux nombres flottants suivant une distribution normale standard
+    """
     u1 = 1.0 - random.random()
     u2 = 1.0 - random.random()
     # Applique la transformation de Box-Muller

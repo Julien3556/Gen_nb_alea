@@ -2,9 +2,15 @@ import math
 
 def test_kolmogorov_smirnov(data):
     """
-    Test de Kolmogorov-Smirnov pour vérifier l'uniformité
+    Test de Kolmogorov-Smirnov pour vérifier l'uniformité.
     
-    Compare la distribution empirique à la distribution uniforme théorique
+    Compare la distribution empirique à la distribution uniforme théorique.
+
+    Args:
+        data (list): Liste de nombres (octets) entre 0 et 255 à tester
+    
+    Returns:
+        float: Statistique D de K-S (distance maximale entre distributions)
     """
     n = len(data)
     sorted_data = sorted(data)
@@ -31,6 +37,14 @@ def affichage_ks(D, n, alpha=0.05):
     Interprète le résultat du test KS
     
     Valeur critique pour alpha=0.05: c = 1.36 / sqrt(n)
+
+    Args:
+        D (float): Statistique D du test K-S
+        n (int): Nombre d'observations (taille de l'échantillon)
+        alpha (float): Niveau de signification (par défaut 0.05 pour 95% de confiance)
+    
+    Returns:
+        bool: True si la distribution est uniforme au niveau alpha, False sinon
     """
     
     # Valeurs critiques selon le niveau de confiance
