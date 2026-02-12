@@ -1,6 +1,6 @@
 def LCG(a, c, m, seed, nb_steps):
     """
-    Générateur de nombres pseudo-aléatoires utilisando le générateur congruential linéaire (LCG).
+    Générateur de nombres pseudo-aléatoires utilisant le générateur congruential linéaire (LCG).
     
     Utilise la formule: X_n = (a * X_{n-1} + c) mod m
     

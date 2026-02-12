@@ -53,9 +53,6 @@ def urandom_windows(n) :
     
     Returns:
         bytes: Séquence de n octets aléatoires
-    
-    Raises:
-        RuntimeError: Si l'appel à BCryptGenRandom échoue
     """
 
     # Charger la DLL Windows
