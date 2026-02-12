@@ -53,7 +53,7 @@ def A(x):
     Applique la transformation A du Mersenne Twister selon la parité de x.
     
     Si x est pair, retourne le décalage vers la droite. 
-    Si x est impair, applique également un XOR avec la constante 0x9908B0DF.
+    Si x est impair, applique également un XOR avec la constante 0x9908B0DF (a).
     
     Args:
         x (int): Entier 32-bits à transformer

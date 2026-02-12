@@ -34,6 +34,8 @@ def est_premier(nombre):
 def generer_premier_blum(nb_bits, seed):
     """
     Génère un nombre premier p tel que p ≡ 3 (mod 4).
+
+    On utilise Mersenne Twister pour générer des candidats.
     
     Args:
         nb_bits (int): Nombre de bits désirés pour le nombre premier
