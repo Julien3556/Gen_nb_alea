@@ -1,6 +1,16 @@
 import random
 
 def source_mauvaise(n, p):
+    """
+    Génère une source de bits biaisée avec une probabilité p pour le bit 1.
+    
+    Args:
+        n (int): Nombre de bits à générer
+        p (float): Probabilité d'obtenir un bit égal à 1 (entre 0 et 1)
+    
+    Returns:
+        list: Liste de n bits (0 ou 1) générés avec probabilité p de 1
+    """
     resultats = []
     for _ in range(n):
         tirage = random.random()
@@ -11,6 +21,15 @@ def source_mauvaise(n, p):
     return resultats
 
 def xor_sources(*sources):
+    """
+    Effectue une opération XOR sur plusieurs sources de bits.
+    
+    Args:
+        *sources (tuple of lists): Sources de bits à combiner (chaque source doit avoir la même longueur)
+    
+    Returns:
+        list: Liste contenant le résultat du XOR de toutes les sources, bit par bit
+    """
     res = []
     for i in range(len(sources[0])):   
         bits = 0

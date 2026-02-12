@@ -1,6 +1,15 @@
 import os
 
 def test_khi_2(data):
+    """
+    Calcule la statistique du test du khi-deux (χ²) pour vérifier l'uniformité.
+    
+    Args:
+        data (bytes or list): Séquence d'octets à tester pour l'uniformité
+    
+    Returns:
+        float: Statistique χ² calculée (plus proche de 255, plus proche de l'uniformité)
+    """
     n = len(data)
     khi2 = 0
     freq = [0] * 256
@@ -15,7 +24,16 @@ def test_khi_2(data):
 
 def interpreter_khi2(khi2_value, alpha=0.05):
     """
-    Valeurs critiques pour ddl=255
+    Interprète et affiche le résultat du test du khi-deux (χ²).
+
+    Valeurs critiques pour ddl=255.
+
+    Args:
+        khi2_value (float): Statistique χ² calculée par test_khi_2()
+        alpha (float): Niveau de signification (par défaut 0.05 pour 95% de confiance)
+    
+    Returns:
+        bool: True si les données sont uniformes au niveau alpha, False sinon
     """
     
     valeurs_critiques = {

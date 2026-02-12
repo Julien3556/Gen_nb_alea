@@ -109,8 +109,6 @@ def attack(cyphertext, plaintext_know):
     Attaque par texte clair connu pour retrouver les paramètres du LCG.
     
     L'attaquant connaît le début du texte clair correspondant aux premiers octets du chiffré.
-    À partir de cette connaissance, on peut retrouver les paramètres a et c du LCG en utilisant
-    les relations de récurrence du générateur et l'algorithme d'Euclide étendu.
     
     Args:
         cyphertext (list): Liste des octets chiffrés
